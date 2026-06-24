@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tapestry AI — Smart City Civic Intelligence Platform</title>
+<meta name="description" content="Tapestry AI unifies citizens, contractors and municipalities with AI-powered civic infrastructure intelligence, GIS mapping, predictive maintenance and a transparency ledger.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .hero{position:relative;padding:70px 0 40px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  @media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:34px}}
+  .hero h1{font-size:clamp(40px,6.2vw,74px);line-height:1.02}
+  .hero p.lead{font-size:clamp(17px,2vw,21px);color:var(--txt-dim);max-width:560px;margin:22px 0 30px;line-height:1.6}
+  .hero-art{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 100px -30px rgba(34,211,238,.4)}
+  .hero-art img{width:100%;height:100%;object-fit:cover}
+  .hero-badge{position:absolute;left:18px;top:18px}
+  .float-card{position:absolute;padding:14px 16px;border-radius:14px;font-size:13px}
+  .scene-track{position:relative}
+  .scene{position:relative;border-radius:26px;overflow:hidden;border:1px solid var(--border);min-height:460px;display:grid;place-items:end center;padding:40px}
+  .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter 1s,transform 1.2s}
+  .scene .scene-cap{position:relative;z-index:2;text-align:center;max-width:640px;background:linear-gradient(180deg,transparent,rgba(11,17,32,.85));padding:24px;border-radius:16px}
+  .feat-icon{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(34,211,238,.14));border:1px solid var(--border);margin-bottom:14px;font-size:22px}
+  .step-n{font-family:var(--font-head);font-weight:800;font-size:14px;color:var(--cyan);letter-spacing:.1em}
+  .marquee{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div style="text-align:center"><div class="spinner" style="margin:0 auto 16px"></div><div style="font-family:var(--font-head);font-weight:700;color:var(--txt-dim);letter-spacing:.1em">TAPESTRY AI</div></div></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/report">Report</a>
+      <a href="/map">Map</a>
+      <a href="/tracking">Tracking</a>
+      <a href="/analytics">Analytics</a>
+      <a href="/profile">Profile</a>
+      <a href="/admin">Admin</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="/auth">Sign in</a>
+      <a class="btn btn-primary" href="/report">Report Issue</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="chip pill-emerald reveal">● Civic Intelligence, reimagined</span>
+      <h1 class="reveal" style="margin-top:18px">The city that <span class="gradient-text">heals itself.</span></h1>
+      <p class="lead reveal">Tapestry AI unifies citizens, contractors and municipalities into one intelligent platform — report issues in seconds, let AI classify, prioritise and cost them, and watch infrastructure repair itself on a live transparency ledger.</p>
+      <div class="reveal" style="display:flex;gap:14px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="/report">Report an issue →</a>
+        <a class="btn btn-ghost" href="/dashboard">Explore the platform</a>
+      </div>
+      <div class="reveal" style="display:flex;gap:34px;margin-top:42px;flex-wrap:wrap">
+        <div><div class="stat-num gradient-text" data-count="128400" data-suffix="+">0</div><div style="color:var(--txt-dim);font-size:14px">Issues resolved</div></div>
+        <div><div class="stat-num gradient-text" data-count="94" data-suffix="%">0</div><div style="color:var(--txt-dim);font-size:14px">Resolution rate</div></div>
+        <div><div class="stat-num gradient-text" data-count="3.2" data-dec="1" data-suffix="d">0</div><div style="color:var(--txt-dim);font-size:14px">Avg. response</div></div>
+      </div>
+    </div>
+    <div class="hero-art reveal float">
+      <img src="../images/7c24d362-54c5-4fd2-8226-518f286e869e.png" alt="Futuristic smart city">
+      <span class="chip pill-cyan hero-badge" style="background:rgba(11,17,32,.7)">◎ Live City Health 92/100</span>
+      <div class="glass float-card" style="right:16px;bottom:16px;background:rgba(11,17,32,.8)">
+        <div style="font-size:11px;color:var(--txt-mute)">AI PREDICTION</div>
+        <div style="font-weight:700">Pothole · 96% confidence</div>
+        <span class="sev sev-high" style="margin-top:6px">High severity</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TRUST -->
+<div class="wrap" style="padding:10px 24px 30px">
+  <p style="text-align:center;color:var(--txt-mute);font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">Powering modern municipalities &amp; smart-city programs</p>
+  <div class="marquee">
+    <span class="chip">Metro Public Works</span><span class="chip">Greenfield County</span><span class="chip">Harbor City</span><span class="chip">Northgate Ward</span><span class="chip">Civic Labs</span><span class="chip">SmartGrid Co.</span>
+  </div>
+</div>
+
+<!-- TRANSFORMATION STORY -->
+<section class="section">
+  <div class="wrap">
+    <div style="text-align:center;max-width:680px;margin:0 auto 50px">
+      <span class="eyebrow reveal">The transformation</span>
+      <h2 class="reveal" style="font-size:clamp(30px,4.4vw,46px);margin-top:12px">From broken to brilliant — as you scroll</h2>
+      <p class="reveal" style="color:var(--txt-dim);margin-top:14px">Every report sets off a chain reaction. Roads repair, streetlights ignite, greenery expands, and the city becomes a sustainable, AI-powered organism.</p>
+    </div>
+    <div class="scene reveal">
+      <img id="scene-img" src="../images/3f6314a7-8931-48d3-8b88-90af75b47e97.png" alt="City transformation">
+      <div class="scene-cap glass">
+        <span class="chip pill-cyan">◐ Scroll to rebuild</span>
+        <h3 style="font-size:26px;margin:12px 0 6px">A futuristic, sustainable smart city powered by AI</h3>
+        <p style="color:var(--txt-dim);margin:0">Potholes filled · streetlights restored · greenery expanded · infrastructure modernised.</p>
+      </div>
+    </div>
+    <div class="grid cols-4" style="margin-top:26px">
+      <div class="glass glass-hover reveal" style="padding:22px"><div class="step-n">01</div><div style="font-weight:700;margin-top:6px">Damage detected</div><p style="color:var(--txt-dim);font-size:14px;margin:6px 0 0">Citizens flag potholes, leaks &amp; hazards.</p></div>
+      <div class="glass glass-hover reveal" style="padding:22px"><div class="step-n">02</div><div style="font-weight:700;margin-top:6px">AI triage</div><p style="color:var(--txt-dim);font-size:14px;margin:6px 0 0">Classified, scored &amp; prioritised instantly.</p></div>
+      <div class="glass glass-hover reveal" style="padding:22px"><div class="step-n">03</div><div style="font-weight:700;margin-top:6px">Repairs dispatched</div><p style="color:var(--txt-dim);font-size:14px;margin:6px 0 0">Contractors assigned &amp; tracked live.</p></div>
+      <div class="glass glass-hover reveal" style="padding:22px"><div class="step-n">04</div><div style="font-weight:700;margin-top:6px">City reborn</div><p style="color:var(--txt-dim);font-size:14px;margin:6px 0 0">Verified, logged on the ledger, predicted ahead.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" style="padding-top:30px">
+  <div class="wrap">
+    <div style="text-align:center;max-width:680px;margin:0 auto 50px">
+      <span class="eyebrow reveal">Everything in one platform</span>
+      <h2 class="reveal" style="font-size:clamp(30px,4.4vw,46px);margin-top:12px">15 intelligent systems, one tapestry</h2>
+    </div>
+    <div class="grid cols-3">
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">🧠</div><h3 style="font-size:19px">AI Classification</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Upload a photo — get category, confidence and a plain-language explanation in seconds.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">⚠️</div><h3 style="font-size:19px">Severity Detection</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Low → Critical scoring from image, description and location with colour-coded indicators.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">💰</div><h3 style="font-size:19px">Cost Estimation</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Predicted repair cost, labour, materials and completion time with confidence scores.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">🗺️</div><h3 style="font-size:19px">GIS Map &amp; Heatmaps</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Clustered markers, filters, search and live heatmaps across every ward.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">📈</div><h3 style="font-size:19px">Predictive Maintenance</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">ML forecasts future potholes, road failures and water-leak risk before they happen.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">🔗</div><h3 style="font-size:19px">Transparency Ledger</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Immutable, blockchain-style audit trail for every action — fully public.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">🔁</div><h3 style="font-size:19px">Duplicate Detection</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Finds nearby &amp; similar reports, then recommends a smart merge.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">🏆</div><h3 style="font-size:19px">Reputation &amp; Voting</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Points, badges, leaderboards and community upvotes that drive priority.</p></div>
+      <div class="glass glass-hover reveal" style="padding:26px"><div class="feat-icon">✅</div><h3 style="font-size:19px">AI Repair Verification</h3><p style="color:var(--txt-dim);font-size:14px;margin-top:8px">Before/after image comparison generates completion &amp; quality scores.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div style="text-align:center;max-width:680px;margin:0 auto 44px">
+      <span class="eyebrow reveal">Built for everyone</span>
+      <h2 class="reveal" style="font-size:clamp(30px,4.4vw,46px);margin-top:12px">One platform, three roles</h2>
+    </div>
+    <div class="grid cols-3">
+      <div class="glass glass-hover reveal" style="padding:30px"><span class="chip pill-emerald">Citizen</span><ul style="color:var(--txt-dim);font-size:14px;line-height:2;margin-top:16px;padding-left:18px"><li>Report &amp; track issues</li><li>Upload photos + GPS</li><li>Vote &amp; verify repairs</li><li>Earn reputation points</li></ul><a class="btn btn-ghost" href="/dashboard" style="margin-top:14px;width:100%;justify-content:center">Citizen view</a></div>
+      <div class="glass glass-hover reveal" style="padding:30px;border-color:var(--border-glow)"><span class="chip pill-cyan">Admin</span><ul style="color:var(--txt-dim);font-size:14px;line-height:2;margin-top:16px;padding-left:18px"><li>Triage all reports</li><li>Assign &amp; manage users</li><li>Review AI recommendations</li><li>Deep analytics</li></ul><a class="btn btn-ghost" href="/admin" style="margin-top:14px;width:100%;justify-content:center">Admin view</a></div>
+      <div class="glass glass-hover reveal" style="padding:30px"><span class="chip">Contractor</span><ul style="color:var(--txt-dim);font-size:14px;line-height:2;margin-top:16px;padding-left:18px"><li>View assigned jobs</li><li>Upload progress updates</li><li>Submit repair evidence</li><li>Completion reports</li></ul><a class="btn btn-ghost" href="/manage" style="margin-top:14px;width:100%;justify-content:center">Contractor view</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="wrap" style="padding-bottom:80px">
+  <div class="glass reveal" style="padding:60px 40px;text-align:center;border-color:var(--border-glow);background:linear-gradient(160deg,rgba(16,185,129,.12),rgba(34,211,238,.08))">
+    <h2 style="font-size:clamp(28px,4vw,44px)">Rebuild your city, intelligently.</h2>
+    <p style="color:var(--txt-dim);max-width:540px;margin:14px auto 26px">Join the platform turning broken infrastructure into a living, self-healing smart city.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="/auth">Get started free</a>
+      <a class="btn btn-ghost" href="/analytics">View live analytics</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+      <p style="color:var(--txt-dim);font-size:14px;margin-top:14px;max-width:280px">Smart City Civic Intelligence — AI, GIS, predictive analytics and transparency, woven into one platform.</p>
+    </div>
+    <div><div style="font-family:var(--font-head);font-weight:700;margin-bottom:8px;font-size:14px">Platform</div><a href="/dashboard">Dashboard</a><a href="/report">Report Issue</a><a href="/map">Interactive Map</a><a href="/tracking">Tracking</a></div>
+    <div><div style="font-family:var(--font-head);font-weight:700;margin-bottom:8px;font-size:14px">Insights</div><a href="/analytics">Analytics</a><a href="/profile">Reputation</a><a href="/admin">Admin</a><a href="/manage">Issue Management</a></div>
+    <div><div style="font-family:var(--font-head);font-weight:700;margin-bottom:8px;font-size:14px">Company</div><a href="/auth">Sign in</a><a href="#">Documentation</a><a href="#">Privacy</a><a href="#">Contact</a></div>
+  </div>
+  <div class="wrap" style="margin-top:34px;color:var(--txt-mute);font-size:13px;border-top:1px solid var(--border);padding-top:20px">© 2024 Tapestry AI · DeFi-grade transparency for civic infrastructure.</div>
+</footer>
+
+<script src="/js/app.js"></script>
+<script>
+// scroll-driven scene transformation (left damaged -> reveal repaired right)
+(function(){
+  var img=document.getElementById('scene-img');var scene=img&&img.closest('.scene');
+  if(!scene)return;
+  window.addEventListener('scroll',function(){
+    var r=scene.getBoundingClientRect();var vh=innerHeight;
+    var p=Math.min(Math.max((vh-r.top)/(vh+r.height),0),1);
+    img.style.transform='scale('+(1.05+p*0.06)+') translateX('+(-(p*4))+'%)';
+    img.style.filter='brightness('+(0.7+p*0.6)+') saturate('+(0.8+p*0.7)+')';
+  },{passive:true});
+})();
+</script>
+
+</body></html>

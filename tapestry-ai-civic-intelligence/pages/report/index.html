@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report an Issue · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+  @media(max-width:980px){.rep-grid{grid-template-columns:1fr}}
+  .drop{border:2px dashed var(--border);border-radius:16px;padding:36px;text-align:center;cursor:pointer;transition:.25s;background:var(--glass)}
+  .drop:hover{border-color:var(--emerald);background:rgba(16,185,129,.05)}
+  .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .cats label{padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;background:var(--glass);display:flex;gap:8px;align-items:center}
+  .cats input{display:none}
+  .cats label:has(input:checked){border-color:var(--emerald);background:rgba(16,185,129,.1);color:var(--emerald)}
+  .ai-box{padding:22px;opacity:.5;transition:.5s}
+  .ai-box.live{opacity:1}
+  .meter{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+  .meter>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--emerald),var(--cyan));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+  .ai-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+  .scan{position:relative;border-radius:14px;overflow:hidden;height:200px;display:grid;place-items:center;background:var(--dark-3);border:1px solid var(--border)}
+  .scan img{width:100%;height:100%;object-fit:cover}
+  .scanline{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 14px var(--cyan);animation:scanmove 1.6s linear infinite}
+  @keyframes scanmove{0%{top:0}100%{top:100%}}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-ghost" href="/dashboard">Dashboard</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">Issue reporting</span>
+    <h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Report an infrastructure issue</h1>
+    <p style="color:var(--txt-dim);margin-top:6px">Upload a photo and our AI instantly classifies, scores severity, estimates cost and checks for duplicates.</p>
+  </div>
+
+  <div class="rep-grid" style="margin-top:24px">
+    <!-- form -->
+    <div class="glass" style="padding:24px">
+      <label class="label">Photo evidence</label>
+      <div class="drop" id="drop" onclick="runAI()">
+        <div style="font-size:34px">📸</div>
+        <div style="font-weight:700;margin-top:8px">Tap to upload or use camera</div>
+        <div style="color:var(--txt-mute);font-size:13px;margin-top:4px">JPG / PNG · we'll run AI vision on it</div>
+      </div>
+
+      <div style="margin-top:18px"><label class="label">Issue title</label><input class="field" id="f-title" placeholder="e.g. Deep pothole near bus stop"></div>
+      <div style="margin-top:14px"><label class="label">Description</label><textarea class="field" rows="3" placeholder="Describe the issue, size, and any danger to the public…"></textarea></div>
+
+      <div style="margin-top:14px"><label class="label">Category</label>
+        <div class="cats">
+          <label><input type="radio" name="cat" checked="">🕳️ Potholes</label>
+          <label><input type="radio" name="cat">🗑️ Garbage</label>
+          <label><input type="radio" name="cat">💧 Water Leakage</label>
+          <label><input type="radio" name="cat">💡 Broken Streetlights</label>
+          <label><input type="radio" name="cat">🌊 Drainage Issues</label>
+          <label><input type="radio" name="cat">🚶 Damaged Sidewalks</label>
+          <label><input type="radio" name="cat">🛣️ Road Cracks</label>
+          <label><input type="radio" name="cat">⚠️ Public Safety</label>
+        </div>
+      </div>
+
+      <div style="margin-top:14px"><label class="label">Location (GPS)</label>
+        <div style="display:flex;gap:10px">
+          <input class="field" id="gps" placeholder="Tap to capture GPS" readonly="">
+          <button class="btn btn-ghost" type="button" onclick="document.getElementById('gps').value='40.7411° N, 73.9897° W · 5th Ave, Ward 7'">📍 Locate</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px" onclick="location.href='/tracking'">Submit report →</button>
+    </div>
+
+    <!-- AI panel -->
+    <div>
+      <div class="glass ai-box" id="aibox">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <h3 style="font-size:18px">🧠 AI Vision Analysis</h3>
+          <span class="chip pill-cyan" id="ai-status">Awaiting image</span>
+        </div>
+        <div class="scan" id="scan"><span style="color:var(--txt-mute)">Upload an image to begin analysis</span></div>
+
+        <div class="ai-row"><span style="color:var(--txt-dim)">Detected category</span><b id="r-cat">—</b></div>
+        <div style="padding:11px 0;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px"><span style="color:var(--txt-dim)">Confidence</span><b id="r-conf">—</b></div>
+          <div class="meter"><i id="m-conf"></i></div>
+        </div>
+        <div class="ai-row"><span style="color:var(--txt-dim)">Severity</span><span id="r-sev">—</span></div>
+        <p id="r-exp" style="color:var(--txt-dim);font-size:13px;margin:12px 0 0;line-height:1.6">Explanation will appear here once the model finishes processing your image.</p>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:22px">
+        <div class="glass ai-box" id="costbox" style="padding:20px">
+          <h3 style="font-size:16px;margin-bottom:12px">💰 Cost estimate</h3>
+          <div class="stat-num gradient-text" id="r-cost">$—</div>
+          <div style="color:var(--txt-mute);font-size:12px">estimated repair cost</div>
+          <div style="margin-top:14px;font-size:13px;color:var(--txt-dim);line-height:1.9">
+            <div style="display:flex;justify-content:space-between"><span>Labour</span><b id="r-lab" style="color:var(--txt)">—</b></div>
+            <div style="display:flex;justify-content:space-between"><span>Materials</span><b id="r-mat" style="color:var(--txt)">—</b></div>
+            <div style="display:flex;justify-content:space-between"><span>Completion</span><b id="r-time" style="color:var(--txt)">—</b></div>
+          </div>
+        </div>
+        <div class="glass ai-box" id="dupbox" style="padding:20px">
+          <h3 style="font-size:16px;margin-bottom:12px">🔁 Duplicate check</h3>
+          <div id="dup-empty" style="color:var(--txt-mute);font-size:13px">No analysis yet.</div>
+          <div id="dup-found" style="display:none">
+            <span class="chip pill-cyan">1 nearby match · 88%</span>
+            <p style="font-size:13px;color:var(--txt-dim);margin:12px 0">"Large pothole on 5th Ave" reported 42m away, 2 days ago.</p>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="location.href='/tracking'">Join existing report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · AI Vision powered by mock TensorFlow + OpenCV pipeline</div></footer>
+<script src="/js/app.js"></script>
+<script>
+function runAI(){
+  var scan=document.getElementById('scan');
+  scan.innerHTML='<img src="https://api.moda.app/api/v2/images/ref/3f6314a7-8931-48d3-8b88-90af75b47e97?v=bd36a837&s=b119fa7f0116ee84f37e4b4eecfffcdc" alt="upload"><div class="scanline"></div>';
+  document.getElementById('ai-status').textContent='Analyzing…';
+  ['aibox','costbox','dupbox'].forEach(id=>document.getElementById(id).classList.add('live'));
+  setTimeout(()=>{
+    document.getElementById('ai-status').textContent='✓ Complete';
+    document.getElementById('ai-status').className='chip pill-emerald';
+    document.querySelector('.scanline').remove();
+    document.getElementById('r-cat').textContent='Pothole';
+    document.getElementById('r-conf').textContent='96.4%';
+    document.getElementById('m-conf').style.width='96%';
+    document.getElementById('r-sev').innerHTML='<span class="sev sev-high">High</span>';
+    document.getElementById('r-exp').textContent='Model detected a deep circular road depression (~0.6m) with exposed sub-base and standing water. High severity due to traffic exposure and vehicle-damage risk. Recommended action: priority asphalt patch.';
+    document.getElementById('r-cost').textContent='$1,240';
+    document.getElementById('r-lab').textContent='6 hrs · 2 crew';
+    document.getElementById('r-mat').textContent='Hot-mix asphalt';
+    document.getElementById('r-time').textContent='1–2 days';
+    document.getElementById('dup-empty').style.display='none';
+    document.getElementById('dup-found').style.display='block';
+    document.getElementById('f-title').value='Deep pothole near bus stop';
+  },1900);
+}
+</script>
+
+</body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue Tracking · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .track-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:start}
+  @media(max-width:980px){.track-grid{grid-template-columns:1fr}}
+  .iss{padding:16px;border-radius:13px;border:1px solid var(--border);background:var(--glass);cursor:pointer;margin-bottom:10px;transition:.2s}
+  .iss:hover,.iss.sel{border-color:var(--border-glow);background:rgba(34,211,238,.06)}
+  .tl{position:relative;padding-left:30px}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--border)}
+  .tl-item{position:relative;padding-bottom:24px}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--dark);border:2px solid var(--emerald);box-shadow:0 0 10px rgba(16,185,129,.6)}
+  .tl-item.pending::before{border-color:var(--txt-mute);box-shadow:none}
+  .ledger{font-family:ui-monospace,monospace;font-size:12px}
+  .ledger .blk{display:flex;gap:10px;padding:10px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;background:var(--glass);align-items:center}
+  .hash{color:var(--cyan);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ba img{border-radius:12px;border:1px solid var(--border);height:130px;width:100%;object-fit:cover}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-primary" href="/report">+ New Report</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Issue tracking</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Track your reports</h1><p style="color:var(--txt-dim);margin-top:6px">Follow every status change, progress update and verification — backed by the transparency ledger.</p></div>
+
+  <div class="track-grid" style="margin-top:24px">
+    <div class="glass" style="padding:18px">
+      <h3 style="font-size:16px;margin-bottom:14px">My submitted issues</h3>
+      <div class="iss sel"><div style="display:flex;justify-content:space-between"><b>Deep pothole, 5th Ave</b><span class="sev sev-high">High</span></div><div style="color:var(--txt-mute);font-size:12px;margin-top:6px">#TAP-2041 · In progress</div><div class="bar" style="margin-top:8px"><i style="width:65%"></i></div></div>
+      <div class="iss"><div style="display:flex;justify-content:space-between"><b>Water leak near park</b><span class="sev sev-crit">Critical</span></div><div style="color:var(--txt-mute);font-size:12px;margin-top:6px">#TAP-2038 · Assigned</div><div class="bar" style="margin-top:8px"><i style="width:35%"></i></div></div>
+      <div class="iss"><div style="display:flex;justify-content:space-between"><b>Broken streetlight, Elm St</b><span class="sev sev-med">Medium</span></div><div style="color:var(--txt-mute);font-size:12px;margin-top:6px">#TAP-2027 · Resolved</div><div class="bar" style="margin-top:8px"><i style="width:100%"></i></div></div>
+    </div>
+
+    <div>
+      <div class="glass" style="padding:24px">
+        <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px">
+          <div><h3 style="font-size:20px">Deep pothole, 5th Ave</h3><div style="color:var(--txt-mute);font-size:13px">#TAP-2041 · Ward 7 · reported 2 days ago</div></div>
+          <span class="chip pill-cyan">◐ In progress · 65%</span>
+        </div>
+
+        <h4 style="margin:22px 0 14px;font-size:15px">Status timeline</h4>
+        <div class="tl">
+          <div class="tl-item"><b>Report submitted</b><div style="color:var(--txt-dim);font-size:13px">AI classified as Pothole (96%), High severity.</div><div style="color:var(--txt-mute);font-size:12px">Mar 12, 09:14</div></div>
+          <div class="tl-item"><b>Verified by community</b><div style="color:var(--txt-dim);font-size:13px">8 upvotes · priority score raised to 82.</div><div style="color:var(--txt-mute);font-size:12px">Mar 12, 15:40</div></div>
+          <div class="tl-item"><b>Assigned to MetroFix Co.</b><div style="color:var(--txt-dim);font-size:13px">Contractor accepted · ETA 1–2 days.</div><div style="color:var(--txt-mute);font-size:12px">Mar 13, 08:02</div></div>
+          <div class="tl-item"><b>Repair in progress</b><div style="color:var(--txt-dim);font-size:13px">Crew on-site, asphalt patch underway.</div><div style="color:var(--txt-mute);font-size:12px">Mar 14, 11:20</div></div>
+          <div class="tl-item pending"><b style="color:var(--txt-mute)">Verification pending</b><div style="color:var(--txt-mute);font-size:13px">Awaiting after-photo &amp; your confirmation.</div></div>
+        </div>
+
+        <h4 style="margin:18px 0 12px;font-size:15px">AI repair verification</h4>
+        <div class="ba">
+          <div><div style="font-size:12px;color:var(--txt-mute);margin-bottom:6px">Before</div><img src="../../images/3f6314a7-8931-48d3-8b88-90af75b47e97.png" alt="before"></div>
+          <div><div style="font-size:12px;color:var(--txt-mute);margin-bottom:6px">After</div><img src="../../images/7c24d362-54c5-4fd2-8226-518f286e869e.png" alt="after"></div>
+        </div>
+        <div class="grid cols-2" style="margin-top:12px">
+          <div class="glass" style="padding:14px"><div style="font-size:12px;color:var(--txt-mute)">Completion score</div><div class="stat-num gradient-text" style="font-size:28px">93%</div></div>
+          <div class="glass" style="padding:14px"><div style="font-size:12px;color:var(--txt-mute)">Repair quality</div><div class="stat-num gradient-text" style="font-size:28px">A−</div></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:14px" onclick="this.textContent='✓ Repair verified — thank you!'">✅ Verify this repair</button>
+      </div>
+
+      <div class="glass" style="padding:24px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3 style="font-size:18px">🔗 Transparency ledger</h3><span class="chip pill-emerald">Immutable · simulated chain</span></div>
+        <div class="ledger">
+          <div class="blk"><span style="color:var(--emerald)">#4081</span><div style="flex:1"><div>ISSUE_CREATED</div><div class="hash">0x9af3…c21 · Mar 12 09:14</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4090</span><div style="flex:1"><div>VOTES_RECORDED · +8</div><div class="hash">0x12bd…7e4 · Mar 12 15:40</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4112</span><div style="flex:1"><div>ASSIGNED · MetroFix Co.</div><div class="hash">0x77ca…9d0 · Mar 13 08:02</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4150</span><div style="flex:1"><div>STATUS · in_progress</div><div class="hash">0x55ef…1a8 · Mar 14 11:20</div></div></div>
+        </div>
+        <p style="color:var(--txt-mute);font-size:12px;margin-top:10px">Each action is hashed &amp; chained. On production this anchors to Polygon; here a deterministic simulated ledger guarantees a tamper-evident audit trail.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Issue Tracking</div></footer>
+<script src="/js/app.js"></script>
+<script>document.querySelectorAll('.iss').forEach(i=>i.addEventListener('click',()=>{document.querySelectorAll('.iss').forEach(x=>x.classList.remove('sel'));i.classList.add('sel');}));</script>
+
+</body></html>

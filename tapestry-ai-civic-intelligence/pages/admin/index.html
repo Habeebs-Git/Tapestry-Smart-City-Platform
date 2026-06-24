@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>.prio{font-family:var(--font-head);font-weight:800;font-size:16px}.prio.hi{color:var(--sev-crit)}.prio.mid{color:var(--sev-high)}.prio.lo{color:var(--sev-low)}</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-ghost" href="/analytics">Analytics</a><a class="btn btn-primary" href="/manage">Manage issues</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Operations</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Admin dashboard</h1><p style="color:var(--txt-dim);margin-top:6px">Triage, assign and oversee every civic issue with AI-ranked priority.</p></div>
+
+  <div class="grid cols-4" style="margin-top:24px">
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Open issues</div><div class="stat-num gradient-text" data-count="318">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Critical / unassigned</div><div class="stat-num" style="color:var(--sev-crit)" data-count="11">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Active contractors</div><div class="stat-num gradient-text" data-count="27">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Registered users</div><div class="stat-num gradient-text" data-count="14820">0</div></div>
+  </div>
+
+  <div class="glass reveal" style="padding:18px;margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <span class="chip pill-cyan">🧠 AI recommendation</span>
+    <span style="color:var(--txt-dim);font-size:14px">3 critical water-leak reports clustered in Ward 4 — recommend dispatching <b style="color:var(--txt)">AquaFix Crew</b> as a batch (saves ~$3.2k &amp; 2 days).</span>
+    <a class="btn btn-ghost" href="/manage" style="margin-left:auto">Review →</a>
+  </div>
+
+  <div class="glass reveal" style="padding:24px;margin-top:22px;overflow-x:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="font-size:18px">Priority queue</h3>
+      <div style="display:flex;gap:8px">
+        <select class="field" style="width:auto;padding:8px 12px"><option>All wards</option><option>Ward 4</option><option>Ward 7</option></select>
+        <select class="field" style="width:auto;padding:8px 12px"><option>All categories</option><option>Potholes</option><option>Water</option></select>
+      </div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Priority</th><th>Issue</th><th>Category</th><th>Severity</th><th>Votes</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><span class="prio hi">98</span></td><td><b>Major water main leak</b><div style="color:var(--txt-mute);font-size:12px">#TAP-2038 · Ward 4</div></td><td>Water Leakage</td><td><span class="sev sev-crit">Critical</span></td><td>142</td><td><span class="chip pill-cyan">Assigned</span></td><td><a href="/manage" style="color:var(--cyan)">Manage</a></td></tr>
+        <tr><td><span class="prio hi">91</span></td><td><b>Collapsed drain cover</b><div style="color:var(--txt-mute);font-size:12px">#TAP-2052 · Ward 2</div></td><td>Drainage</td><td><span class="sev sev-crit">Critical</span></td><td>98</td><td><span class="chip">Unassigned</span></td><td><a href="/manage" style="color:var(--cyan)">Assign</a></td></tr>
+        <tr><td><span class="prio mid">82</span></td><td><b>Deep pothole, 5th Ave</b><div style="color:var(--txt-mute);font-size:12px">#TAP-2041 · Ward 7</div></td><td>Potholes</td><td><span class="sev sev-high">High</span></td><td>76</td><td><span class="chip pill-cyan">In progress</span></td><td><a href="/manage" style="color:var(--cyan)">Manage</a></td></tr>
+        <tr><td><span class="prio mid">68</span></td><td><b>Road cracks, Hill Rd</b><div style="color:var(--txt-mute);font-size:12px">#TAP-2049 · Ward 9</div></td><td>Road Cracks</td><td><span class="sev sev-high">High</span></td><td>54</td><td><span class="chip">Unassigned</span></td><td><a href="/manage" style="color:var(--cyan)">Assign</a></td></tr>
+        <tr><td><span class="prio lo">44</span></td><td><b>Flickering streetlight</b><div style="color:var(--txt-mute);font-size:12px">#TAP-2055 · Ward 7</div></td><td>Streetlights</td><td><span class="sev sev-med">Medium</span></td><td>21</td><td><span class="chip pill-emerald">Resolved</span></td><td><a href="/manage" style="color:var(--cyan)">View</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:22px">
+    <div class="glass reveal" style="padding:24px">
+      <h3 style="font-size:17px;margin-bottom:14px">Recent user activity</h3>
+      <table class="tbl"><tbody>
+        <tr><td><b>Ana Martins</b><div style="color:var(--txt-mute);font-size:12px">Citizen</div></td><td>Verified repair #TAP-2027</td><td style="color:var(--txt-mute)">2m</td></tr>
+        <tr><td><b>MetroFix Co.</b><div style="color:var(--txt-mute);font-size:12px">Contractor</div></td><td>Uploaded progress photo</td><td style="color:var(--txt-mute)">18m</td></tr>
+        <tr><td><b>David Kim</b><div style="color:var(--txt-mute);font-size:12px">Citizen</div></td><td>Reported drainage issue</td><td style="color:var(--txt-mute)">1h</td></tr>
+      </tbody></table>
+    </div>
+    <div class="glass reveal" style="padding:24px">
+      <h3 style="font-size:17px;margin-bottom:14px">Contractor load</h3>
+      <div style="display:grid;gap:14px">
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>MetroFix Co.</span><b>7 / 10</b></div><div class="bar"><i style="width:70%"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>AquaFix Crew</span><b>9 / 10</b></div><div class="bar"><i style="width:90%;background:linear-gradient(90deg,var(--sev-high),var(--sev-crit))"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>BrightLight Ltd.</span><b>3 / 10</b></div><div class="bar"><i style="width:30%"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>UrbanPave Inc.</span><b>5 / 10</b></div><div class="bar"><i style="width:50%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Admin</div></footer>
+<script src="/js/app.js"></script>
+
+</body></html>
