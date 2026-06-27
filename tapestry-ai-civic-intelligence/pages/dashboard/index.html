@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizen Dashboard · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<script src="https://cdn.moda.app/runtime-libs/chartjs-4.5.1/chart.umd.min.js"></script>
+<style>
+  .kpi{padding:22px}
+  .kpi .icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(34,211,238,.14));border:1px solid var(--border)}
+  .up{color:var(--emerald);font-size:13px;font-weight:700}
+  .notif{display:flex;gap:12px;padding:13px;border-radius:12px;border:1px solid var(--border);background:var(--glass);margin-bottom:10px}
+  .ndot{width:9px;height:9px;border-radius:50%;background:var(--cyan);margin-top:6px;flex:none;box-shadow:0 0 8px var(--cyan)}
+  .dash-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:22px}
+  @media(max-width:980px){.dash-grid{grid-template-columns:1fr}}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a>
+  </div>
+  <div class="nav-right"><a class="btn btn-primary" href="/report">+ New Report</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <span class="eyebrow">Citizen workspace</span>
+    <h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Welcome back, Jordan 👋</h1>
+    <p style="color:var(--txt-dim);margin-top:6px">Here's what's happening across your reports and your ward.</p>
+  </div>
+
+  <div class="grid cols-4" style="margin-top:24px">
+    <div class="glass glass-hover kpi reveal"><div style="display:flex;justify-content:space-between"><div class="icon">📋</div><span class="up">▲ 2</span></div><div class="stat-num" style="margin-top:14px" data-count="12">0</div><div style="color:var(--txt-dim);font-size:14px">My reports</div></div>
+    <div class="glass glass-hover kpi reveal"><div style="display:flex;justify-content:space-between"><div class="icon">✅</div><span class="up">▲ 8</span></div><div class="stat-num" style="margin-top:14px" data-count="9">0</div><div style="color:var(--txt-dim);font-size:14px">Resolved</div></div>
+    <div class="glass glass-hover kpi reveal"><div style="display:flex;justify-content:space-between"><div class="icon">⏳</div><span style="color:var(--sev-high);font-size:13px;font-weight:700">active</span></div><div class="stat-num" style="margin-top:14px" data-count="3">0</div><div style="color:var(--txt-dim);font-size:14px">In progress</div></div>
+    <div class="glass glass-hover kpi reveal"><div style="display:flex;justify-content:space-between"><div class="icon">🏆</div><span class="up">Rank #14</span></div><div class="stat-num" style="margin-top:14px" data-count="1840">0</div><div style="color:var(--txt-dim);font-size:14px">Reputation</div></div>
+  </div>
+
+  <div class="dash-grid" style="margin-top:22px">
+    <div class="glass reveal" style="padding:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <h3 style="font-size:18px">Recent reports</h3>
+        <a href="/tracking" style="color:var(--cyan);font-size:14px">Track all →</a>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Issue</th><th>Category</th><th>Severity</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>Deep pothole on 5th Ave</b><div style="color:var(--txt-mute);font-size:12px">2 days ago · Ward 7</div></td><td>Potholes</td><td><span class="sev sev-high">High</span></td><td><span class="chip pill-cyan">In progress</span></td></tr>
+          <tr><td><b>Broken streetlight, Elm St</b><div style="color:var(--txt-mute);font-size:12px">5 days ago · Ward 7</div></td><td>Streetlights</td><td><span class="sev sev-med">Medium</span></td><td><span class="chip pill-emerald">Resolved</span></td></tr>
+          <tr><td><b>Water leak near park</b><div style="color:var(--txt-mute);font-size:12px">1 week ago · Ward 4</div></td><td>Water Leakage</td><td><span class="sev sev-crit">Critical</span></td><td><span class="chip pill-cyan">Assigned</span></td></tr>
+          <tr><td><b>Overflowing bins, Market Sq</b><div style="color:var(--txt-mute);font-size:12px">1 week ago · Ward 7</div></td><td>Garbage</td><td><span class="sev sev-low">Low</span></td><td><span class="chip pill-emerald">Resolved</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:22px"><h3 style="font-size:16px;margin-bottom:12px">Ward 7 resolution trend</h3><canvas id="trend" height="110"></canvas></div>
+    </div>
+
+    <div>
+      <div class="glass reveal" style="padding:22px;margin-bottom:22px">
+        <h3 style="font-size:18px;margin-bottom:14px">🔔 Notifications</h3>
+        <div class="notif"><div class="ndot"></div><div><b style="font-size:14px">Contractor assigned</b><div style="color:var(--txt-dim);font-size:13px">5th Ave pothole assigned to MetroFix Co.</div><div style="color:var(--txt-mute);font-size:12px">2h ago</div></div></div>
+        <div class="notif"><div class="ndot" style="background:var(--emerald)"></div><div><b style="font-size:14px">Verification requested</b><div style="color:var(--txt-dim);font-size:13px">Elm St streetlight — confirm repair.</div><div style="color:var(--txt-mute);font-size:12px">1d ago · <a href="/tracking" style="color:var(--cyan)">Verify</a></div></div></div>
+        <div class="notif"><div class="ndot" style="background:var(--accent)"></div><div><b style="font-size:14px">+120 reputation</b><div style="color:var(--txt-dim);font-size:13px">Your report was verified by 3 neighbours.</div><div style="color:var(--txt-mute);font-size:12px">2d ago</div></div></div>
+      </div>
+      <div class="glass reveal" style="padding:22px">
+        <h3 style="font-size:18px;margin-bottom:6px">Quick actions</h3>
+        <div style="display:grid;gap:10px;margin-top:12px">
+          <a class="btn btn-primary" style="justify-content:center" href="/report">📸 Report new issue</a>
+          <a class="btn btn-ghost" style="justify-content:center" href="/map">🗺️ Explore the map</a>
+          <a class="btn btn-ghost" style="justify-content:center" href="/profile">🏆 My reputation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Citizen Dashboard</div></footer>
+<script src="/js/app.js"></script>
+<script>
+window.addEventListener('load',function(){
+  var c=document.getElementById('trend');if(!c)return;
+  new Chart(c,{type:'line',data:{labels:['Wk1','Wk2','Wk3','Wk4','Wk5','Wk6'],datasets:[{label:'Resolved',data:[12,19,15,27,24,33],borderColor:'#10B981',backgroundColor:'rgba(16,185,129,.15)',fill:true,tension:.4,pointRadius:0},{label:'Reported',data:[20,24,22,30,28,36],borderColor:'#22D3EE',backgroundColor:'transparent',tension:.4,pointRadius:0,borderDash:[5,5]}]},options:{plugins:{legend:{labels:{color:'#94A3B8'}}},scales:{x:{ticks:{color:'#5b6b85'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#5b6b85'},grid:{color:'rgba(255,255,255,.05)'}}}}});
+});
+</script>
+
+</body></html>

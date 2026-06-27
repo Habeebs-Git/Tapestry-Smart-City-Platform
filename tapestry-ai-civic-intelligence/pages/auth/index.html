@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .auth-grid{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+  @media(max-width:900px){.auth-grid{grid-template-columns:1fr}.auth-side{display:none}}
+  .auth-side{position:relative;padding:56px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,rgba(16,185,129,.16),rgba(34,211,238,.08));border-right:1px solid var(--border)}
+  .auth-main{display:grid;place-items:center;padding:40px 24px}
+  .auth-card{width:100%;max-width:420px}
+  .tabs{display:flex;background:var(--glass-strong);border:1px solid var(--border);border-radius:12px;padding:5px;margin-bottom:24px}
+  .tabs button{flex:1;padding:11px;border:none;background:transparent;color:var(--txt-dim);font-weight:700;border-radius:8px;cursor:pointer;font-family:var(--font-head)}
+  .tabs button.active{background:linear-gradient(120deg,var(--emerald),var(--cyan));color:#04121a}
+  .soc{display:flex;gap:10px}
+  .soc button{flex:1;justify-content:center;background:var(--glass-strong);border:1px solid var(--border);color:var(--txt);padding:11px;border-radius:11px;font-weight:600;cursor:pointer;display:flex;gap:8px;align-items:center}
+  .soc button:hover{border-color:var(--border-glow)}
+  .role-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
+  .role-pick label{text-align:center;padding:10px 4px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;background:var(--glass)}
+  .role-pick input{display:none}
+  .role-pick input:checked + span{color:var(--emerald)}
+  .role-pick label:has(input:checked){border-color:var(--emerald);background:rgba(16,185,129,.1)}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div class="auth-grid">
+  <aside class="auth-side">
+    <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+    <div>
+      <h1 style="font-size:40px;line-height:1.1">Welcome to the <span class="gradient-text">self-healing city.</span></h1>
+      <p style="color:var(--txt-dim);margin-top:16px;max-width:380px">Report, track and verify civic infrastructure issues — powered by AI triage, GIS intelligence and a transparent public ledger.</p>
+      <div style="display:flex;gap:26px;margin-top:34px">
+        <div><div class="stat-num gradient-text">128K+</div><div style="color:var(--txt-dim);font-size:13px">Resolved</div></div>
+        <div><div class="stat-num gradient-text">94%</div><div style="color:var(--txt-dim);font-size:13px">Resolution</div></div>
+        <div><div class="stat-num gradient-text">42</div><div style="color:var(--txt-dim);font-size:13px">Wards live</div></div>
+      </div>
+    </div>
+    <p style="color:var(--txt-mute);font-size:13px">© 2024 Tapestry AI · Secured with JWT + OAuth</p>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <div class="tabs">
+        <button id="t-login" class="active" onclick="setMode('login')">Sign in</button>
+        <button id="t-reg" onclick="setMode('register')">Create account</button>
+      </div>
+
+      <form onsubmit="event.preventDefault();location.href='/dashboard'">
+        <div id="reg-only" style="display:none">
+          <label class="label">I am a…</label>
+          <div class="role-pick">
+            <label><input type="radio" name="role" checked=""><span>👤 Citizen</span></label>
+            <label><input type="radio" name="role"><span>🛠️ Contractor</span></label>
+            <label><input type="radio" name="role"><span>🏛️ Admin</span></label>
+          </div>
+          <div style="margin:14px 0"><label class="label">Full name</label><input class="field" placeholder="Jordan Rivera"></div>
+        </div>
+        <div style="margin-bottom:14px"><label class="label">Email</label><input type="email" class="field" placeholder="you@city.gov" required=""></div>
+        <div style="margin-bottom:8px"><label class="label">Password</label><input type="password" class="field" placeholder="••••••••" required=""></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 18px;font-size:13px;color:var(--txt-dim)">
+          <label style="display:flex;gap:7px;align-items:center"><input type="checkbox"> Remember me</label>
+          <a href="#" style="color:var(--cyan)">Forgot password?</a>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" type="submit"><span id="submit-label">Sign in →</span></button>
+      </form>
+
+      <div style="display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--txt-mute);font-size:13px"><span style="flex:1;height:1px;background:var(--border)"></span>or continue with<span style="flex:1;height:1px;background:var(--border)"></span></div>
+      <div class="soc">
+        <button onclick="location.href='/dashboard'">🔵 Google</button>
+        <button onclick="location.href='/dashboard'">⬛ GitHub</button>
+        <button onclick="location.href='/dashboard'"> Apple</button>
+      </div>
+      <p style="text-align:center;color:var(--txt-mute);font-size:13px;margin-top:22px"><a href="/" style="color:var(--txt-dim)">← Back to home</a></p>
+    </div>
+  </main>
+</div>
+<script src="/js/app.js"></script>
+<script>
+function setMode(m){
+  var reg=m==='register';
+  document.getElementById('reg-only').style.display=reg?'block':'none';
+  document.getElementById('t-reg').classList.toggle('active',reg);
+  document.getElementById('t-login').classList.toggle('active',!reg);
+  document.getElementById('submit-label').textContent=reg?'Create account →':'Sign in →';
+}
+</script>
+
+</body></html>
