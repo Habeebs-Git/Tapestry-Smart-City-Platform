@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>.prio{font-family:var(--font-head);font-weight:800;font-size:16px}.prio.hi{color:var(--sev-crit)}.prio.mid{color:var(--sev-high)}.prio.lo{color:var(--sev-low)}</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-ghost" href="/analytics">Analytics</a><a class="btn btn-primary" href="/manage">Manage issues</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Operations</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Admin dashboard</h1><p style="color:var(--txt-dim);margin-top:6px">Triage, assign and oversee every civic issue with AI-ranked priority.</p></div>
+
+  <div class="grid cols-4" style="margin-top:24px">
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Total issues</div><div class="stat-num gradient-text" id="a-total">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Open issues</div><div class="stat-num gradient-text" id="a-open">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Critical</div><div class="stat-num" style="color:var(--sev-crit)" id="a-crit">0</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Registered users</div><div class="stat-num gradient-text" id="a-users">0</div></div>
+  </div>
+
+  <div class="glass reveal" style="padding:18px;margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <span class="chip pill-cyan">🧠 AI recommendation</span>
+    <span style="color:var(--txt-dim);font-size:14px">3 critical water-leak reports clustered in Ward 4 — recommend dispatching <b style="color:var(--txt)">AquaFix Crew</b> as a batch (saves ~$3.2k &amp; 2 days).</span>
+    <a class="btn btn-ghost" href="/manage" style="margin-left:auto">Review →</a>
+  </div>
+
+  <div class="glass reveal" style="padding:24px;margin-top:22px;overflow-x:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="font-size:18px">Priority queue</h3>
+      <div style="display:flex;gap:8px">
+        <select class="field" style="width:auto;padding:8px 12px"><option>All wards</option><option>Ward 4</option><option>Ward 7</option></select>
+        <select class="field" style="width:auto;padding:8px 12px"><option>All categories</option><option>Potholes</option><option>Water</option></select>
+      </div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Priority</th><th>Issue</th><th>Category</th><th>Severity</th><th>Votes</th><th>Status</th><th></th></tr></thead>
+      <tbody id="queue-body"><tr><td colspan="7" style="color:var(--txt-mute)">Loading…</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:22px">
+    <div class="glass reveal" style="padding:24px">
+      <h3 style="font-size:17px;margin-bottom:14px">Recent user activity</h3>
+      <table class="tbl"><tbody>
+        <tr><td><b>Ana Martins</b><div style="color:var(--txt-mute);font-size:12px">Citizen</div></td><td>Verified repair #TAP-2027</td><td style="color:var(--txt-mute)">2m</td></tr>
+        <tr><td><b>MetroFix Co.</b><div style="color:var(--txt-mute);font-size:12px">Contractor</div></td><td>Uploaded progress photo</td><td style="color:var(--txt-mute)">18m</td></tr>
+        <tr><td><b>David Kim</b><div style="color:var(--txt-mute);font-size:12px">Citizen</div></td><td>Reported drainage issue</td><td style="color:var(--txt-mute)">1h</td></tr>
+      </tbody></table>
+    </div>
+    <div class="glass reveal" style="padding:24px">
+      <h3 style="font-size:17px;margin-bottom:14px">Contractor load</h3>
+      <div style="display:grid;gap:14px">
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>MetroFix Co.</span><b>7 / 10</b></div><div class="bar"><i style="width:70%"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>AquaFix Crew</span><b>9 / 10</b></div><div class="bar"><i style="width:90%;background:linear-gradient(90deg,var(--sev-high),var(--sev-crit))"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>BrightLight Ltd.</span><b>3 / 10</b></div><div class="bar"><i style="width:30%"></i></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>UrbanPave Inc.</span><b>5 / 10</b></div><div class="bar"><i style="width:50%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Admin</div></footer>
+<script src="/js/store.js"></script>
+<script src="/js/app.js"></script>
+<script>
+// ---- admin: fetch ALL issues + live priority engine (GET /issues) ----
+var sevClass={Low:'sev-low',Medium:'sev-med',High:'sev-high',Critical:'sev-crit'};
+var sevScore={Low:20,Medium:45,High:70,Critical:95};
+function statusChip(s){var ok=(s==='Resolved'||s==='Verified');var un=(s==='Reported');return '<span class="chip '+(ok?'pill-emerald':un?'':'pill-cyan')+'">'+(un?'Unassigned':s)+'</span>';}
+// priority score 1-100: severity + votes + age
+function priority(i){var age=Math.min((Date.now()-new Date(i.createdAt))/86400000,30);
+  var s=Math.round(sevScore[i.severity]*0.6 + Math.min(i.votes||0,150)/150*30 + age/30*10);
+  return Math.max(1,Math.min(100,s));}
+function prioClass(p){return p>=85?'hi':p>=60?'mid':'lo';}
+function render(){
+  var all=TapestryAPI.getIssues();
+  var st=TapestryAPI.dashboardStats();
+  document.getElementById('a-total').textContent=st.total;
+  document.getElementById('a-open').textContent=st.open;
+  document.getElementById('a-crit').textContent=st.critical;
+  document.getElementById('a-users').textContent=(JSON.parse(localStorage.getItem('tap_users')||'[]')).length;
+  var sorted=all.map(function(i){return {i:i,p:priority(i)};}).sort(function(a,b){return b.p-a.p;});
+  document.getElementById('queue-body').innerHTML=sorted.map(function(o){var i=o.i;
+    return '<tr><td><span class="prio '+prioClass(o.p)+'">'+o.p+'</span></td>'+
+      '<td><b>'+i.title+'</b><div style="color:var(--txt-mute);font-size:12px">#'+i.id.slice(-6).toUpperCase()+' · '+(i.location||'—')+'</div></td>'+
+      '<td>'+i.category+'</td><td><span class="sev '+(sevClass[i.severity]||'sev-med')+'">'+i.severity+'</span></td>'+
+      '<td>'+(i.votes||0)+'</td><td>'+statusChip(i.status)+'</td>'+
+      '<td><a href="/manage?id='+i.id+'" style="color:var(--cyan)">Manage</a></td></tr>';
+  }).join('')||'<tr><td colspan="7" style="color:var(--txt-mute)">No issues in the database yet.</td></tr>';
+}
+render();
+</script>
+
+</body></html>
