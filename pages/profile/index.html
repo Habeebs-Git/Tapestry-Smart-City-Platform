@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile &amp; Reputation · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .prof-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:22px;align-items:start}
+  @media(max-width:980px){.prof-grid{grid-template-columns:1fr}}
+  .avatar{width:88px;height:88px;border-radius:22px;background:linear-gradient(135deg,var(--emerald),var(--cyan));display:grid;place-items:center;font-family:var(--font-head);font-weight:800;font-size:34px;color:#04121a;box-shadow:0 0 26px rgba(34,211,238,.5)}
+  .badge{text-align:center;padding:18px 10px;border-radius:14px;border:1px solid var(--border);background:var(--glass)}
+  .badge .ic{font-size:30px}
+  .badge.locked{opacity:.4}
+  .lb-row{display:flex;align-items:center;gap:12px;padding:11px;border-radius:11px;border:1px solid var(--border);margin-bottom:8px;background:var(--glass)}
+  .lb-row.me{border-color:var(--emerald);background:rgba(16,185,129,.08)}
+  .rank{font-family:var(--font-head);font-weight:800;width:30px;color:var(--txt-mute)}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-primary" href="/report">+ New Report</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Your impact</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Profile &amp; reputation</h1></div>
+
+  <div class="prof-grid" style="margin-top:24px">
+    <div>
+      <div class="glass" style="padding:24px;text-align:center">
+        <div class="avatar" style="margin:0 auto" id="p-avatar">JR</div>
+        <h3 style="font-size:20px;margin-top:14px" id="p-name">Jordan Rivera</h3>
+        <div style="color:var(--txt-mute);font-size:13px" id="p-email">citizen · member</div>
+        <span class="chip pill-emerald" style="margin-top:12px" id="p-tier">🏆 Civic Guardian</span>
+        <div class="stat-num gradient-text" style="margin-top:18px" id="p-rep">0</div>
+        <div style="color:var(--txt-dim);font-size:14px">reputation points</div>
+        <div class="bar" style="margin-top:14px"><i style="width:74%"></i></div>
+        <div style="color:var(--txt-mute);font-size:12px;margin-top:6px">660 pts to Tier 5 · City Champion</div>
+      </div>
+      <div class="glass" style="padding:22px;margin-top:22px">
+        <h3 style="font-size:16px;margin-bottom:14px">Lifetime stats</h3>
+        <div style="display:grid;gap:11px;font-size:14px">
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--txt-dim)">Reports submitted</span><b id="p-reports">0</b></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--txt-dim)">Verified valid</span><b style="color:var(--emerald)" id="p-valid">0</b></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--txt-dim)">Repairs verified</span><b id="p-resolved">0</b></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--txt-dim)">Community votes cast</span><b>206</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="glass" style="padding:24px">
+        <h3 style="font-size:17px;margin-bottom:16px">Badges &amp; achievements</h3>
+        <div class="grid cols-4">
+          <div class="badge"><div class="ic">🥇</div><div style="font-weight:700;font-size:13px;margin-top:6px">First Report</div></div>
+          <div class="badge"><div class="ic">🔥</div><div style="font-weight:700;font-size:13px;margin-top:6px">30-day Streak</div></div>
+          <div class="badge"><div class="ic">🛡️</div><div style="font-weight:700;font-size:13px;margin-top:6px">Verified 25</div></div>
+          <div class="badge"><div class="ic">🗺️</div><div style="font-weight:700;font-size:13px;margin-top:6px">Ward Hero</div></div>
+          <div class="badge"><div class="ic">⚡</div><div style="font-weight:700;font-size:13px;margin-top:6px">Quick Eye</div></div>
+          <div class="badge"><div class="ic">💧</div><div style="font-weight:700;font-size:13px;margin-top:6px">Leak Buster</div></div>
+          <div class="badge locked"><div class="ic">👑</div><div style="font-weight:700;font-size:13px;margin-top:6px">City Champion</div></div>
+          <div class="badge locked"><div class="ic">🌟</div><div style="font-weight:700;font-size:13px;margin-top:6px">100 Reports</div></div>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:24px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="font-size:17px">🏆 Ward leaderboard</h3><span class="chip pill-cyan">Ward 7</span></div>
+        <div class="lb-row"><span class="rank" style="color:#FFD700">1</span><div class="avatar" style="width:38px;height:38px;font-size:15px;border-radius:11px">AM</div><div style="flex:1"><b>Ana Martins</b><div style="color:var(--txt-mute);font-size:12px">Civic Legend</div></div><b class="gradient-text">3,920</b></div>
+        <div class="lb-row"><span class="rank" style="color:#C0C0C0">2</span><div class="avatar" style="width:38px;height:38px;font-size:15px;border-radius:11px">DK</div><div style="flex:1"><b>David Kim</b><div style="color:var(--txt-mute);font-size:12px">City Champion</div></div><b class="gradient-text">3,110</b></div>
+        <div class="lb-row"><span class="rank" style="color:#CD7F32">3</span><div class="avatar" style="width:38px;height:38px;font-size:15px;border-radius:11px">SL</div><div style="flex:1"><b>Sara Lopez</b><div style="color:var(--txt-mute);font-size:12px">City Champion</div></div><b class="gradient-text">2,640</b></div>
+        <div class="lb-row me"><span class="rank">14</span><div class="avatar" style="width:38px;height:38px;font-size:15px;border-radius:11px">JR</div><div style="flex:1"><b>Jordan Rivera (you)</b><div style="color:var(--txt-mute);font-size:12px">Civic Guardian</div></div><b class="gradient-text">1,840</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Reputation System</div></footer>
+<script src="/js/store.js"></script>
+<script src="/js/app.js"></script>
+<script>
+(function(){
+  var u=TapestryAPI.currentUser();if(!u)return;
+  var initials=u.name.split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+  document.getElementById('p-avatar').textContent=initials;
+  document.getElementById('p-name').textContent=u.name;
+  document.getElementById('p-email').textContent=u.email+' · '+u.role;
+  var rep=u.reputation||0;
+  document.getElementById('p-rep').textContent=rep.toLocaleString();
+  var tier=rep>=3000?'City Champion':rep>=1500?'Civic Guardian':rep>=500?'Active Citizen':'Newcomer';
+  document.getElementById('p-tier').textContent='🏆 '+tier;
+  var mine=TapestryAPI.getIssues({mine:true});
+  document.getElementById('p-reports').textContent=mine.length;
+  document.getElementById('p-valid').textContent=mine.length;
+  document.getElementById('p-resolved').textContent=mine.filter(function(i){return i.status==='Resolved'||i.status==='Verified';}).length;
+})();
+</script>
+
+</body></html>

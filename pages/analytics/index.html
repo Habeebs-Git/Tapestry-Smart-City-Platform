@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<script src="https://cdn.moda.app/runtime-libs/chartjs-4.5.1/chart.umd.min.js"></script>
+<style>
+  .ring{position:relative;width:150px;height:150px;margin:0 auto}
+  .heatcells{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+  .heatcells span{aspect-ratio:1;border-radius:4px}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-ghost" href="/admin">Admin</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Infrastructure health</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Analytics dashboard</h1><p style="color:var(--txt-dim);margin-top:6px">City-wide intelligence on health, costs, trends and department performance.</p></div>
+
+  <div class="grid cols-4" style="margin-top:24px">
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">City health score</div><div class="stat-num gradient-text" data-count="92">0</div><div class="bar" style="margin-top:8px"><i style="width:92%"></i></div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Resolution rate</div><div class="stat-num gradient-text" data-count="94" data-suffix="%">0</div><div class="up" style="color:var(--emerald);font-size:13px;font-weight:700;margin-top:6px">▲ 6% vs last month</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Avg response time</div><div class="stat-num gradient-text" data-count="3.2" data-dec="1" data-suffix="d">0</div><div class="up" style="color:var(--emerald);font-size:13px;font-weight:700;margin-top:6px">▼ 0.8d faster</div></div>
+    <div class="glass glass-hover reveal" style="padding:22px"><div style="color:var(--txt-dim);font-size:13px">Repair spend (YTD)</div><div class="stat-num gradient-text" data-count="2.4" data-dec="1" data-prefix="$" data-suffix="M">0</div><div style="color:var(--txt-mute);font-size:13px;margin-top:6px">on budget</div></div>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:22px">
+    <div class="glass reveal" style="padding:24px"><h3 style="font-size:17px;margin-bottom:16px">Reported vs resolved (12 mo)</h3><canvas id="c-trend" height="150"></canvas></div>
+    <div class="glass reveal" style="padding:24px"><h3 style="font-size:17px;margin-bottom:16px">Issues by category</h3><canvas id="c-cat" height="150"></canvas></div>
+  </div>
+
+  <div class="grid cols-3" style="margin-top:22px">
+    <div class="glass reveal" style="padding:24px"><h3 style="font-size:17px;margin-bottom:16px">Cost by department</h3><canvas id="c-cost" height="170"></canvas></div>
+    <div class="glass reveal" style="padding:24px"><h3 style="font-size:17px;margin-bottom:16px">Resolution by ward</h3><canvas id="c-ward" height="170"></canvas></div>
+    <div class="glass reveal" style="padding:24px">
+      <h3 style="font-size:17px;margin-bottom:8px">Predictive risk index</h3>
+      <p style="color:var(--txt-mute);font-size:12px;margin-bottom:16px">ML-forecast deterioration heat (next 90 days)</p>
+      <div class="heatcells" id="heat"></div>
+      <div style="display:flex;justify-content:space-between;color:var(--txt-mute);font-size:11px;margin-top:8px"><span>Low risk</span><span>High risk</span></div>
+    </div>
+  </div>
+
+  <div class="glass reveal" style="padding:24px;margin-top:22px">
+    <h3 style="font-size:17px;margin-bottom:16px">Department performance</h3>
+    <table class="tbl">
+      <thead><tr><th>Department</th><th>Resolved</th><th>Avg time</th><th>Satisfaction</th><th>Trend</th></tr></thead>
+      <tbody>
+        <tr><td><b>Roads &amp; Highways</b></td><td>412</td><td>2.8d</td><td>4.6 ★</td><td><span class="up" style="color:var(--emerald)">▲ improving</span></td></tr>
+        <tr><td><b>Water &amp; Drainage</b></td><td>288</td><td>3.6d</td><td>4.3 ★</td><td><span class="up" style="color:var(--emerald)">▲ improving</span></td></tr>
+        <tr><td><b>Sanitation</b></td><td>521</td><td>1.9d</td><td>4.7 ★</td><td><span style="color:var(--txt-mute)">— stable</span></td></tr>
+        <tr><td><b>Street Lighting</b></td><td>196</td><td>4.1d</td><td>4.1 ★</td><td><span style="color:var(--sev-high)">▼ watch</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Analytics</div></footer>
+<script src="/js/store.js"></script>
+<script src="/js/app.js"></script>
+<script>
+window.addEventListener('load',function(){
+  var gx={ticks:{color:'#5b6b85'},grid:{color:'rgba(255,255,255,.05)'}};
+  var leg={labels:{color:'#94A3B8'}};
+  new Chart(c_trend,{type:'line',data:{labels:['J','F','M','A','M','J','J','A','S','O','N','D'],datasets:[{label:'Reported',data:[120,140,135,160,155,180,175,190,185,200,210,220],borderColor:'#22D3EE',tension:.4,pointRadius:0},{label:'Resolved',data:[100,128,130,150,150,172,170,185,182,196,205,214],borderColor:'#10B981',backgroundColor:'rgba(16,185,129,.12)',fill:true,tension:.4,pointRadius:0}]},options:{plugins:{legend:leg},scales:{x:gx,y:gx}}});
+  new Chart(c_cat,{type:'doughnut',data:{labels:['Potholes','Garbage','Water','Streetlights','Drainage','Other'],datasets:[{data:[32,21,15,12,10,10],backgroundColor:['#10B981','#22D3EE','#84CC16','#F59E0B','#F43F5E','#64748b'],borderColor:'#0B1120',borderWidth:2}]},options:{plugins:{legend:{position:'right',labels:{color:'#94A3B8',boxWidth:12}}}}});
+  new Chart(c_cost,{type:'bar',data:{labels:['Roads','Water','Sanit.','Light','Safety'],datasets:[{data:[820,540,310,290,180],backgroundColor:'rgba(16,185,129,.6)',borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{x:gx,y:gx}}});
+  new Chart(c_ward,{type:'bar',data:{labels:['W1','W2','W4','W7','W9','W12'],datasets:[{label:'%',data:[88,92,79,95,84,90],backgroundColor:'rgba(34,211,238,.6)',borderRadius:6}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:gx,y:gx}}});
+  var h=document.getElementById('heat');for(var i=0;i<48;i++){var v=Math.random();var s=document.createElement('span');var c=v<.4?'rgba(16,185,129,'+(0.25+v):v<.7?'rgba(245,158,11,'+(v):'rgba(244,63,94,'+(v);s.style.background=c+')';h.appendChild(s);}
+});
+</script>
+
+</body></html>

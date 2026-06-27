@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue Tracking · Tapestry AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<style>
+  .track-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:start}
+  @media(max-width:980px){.track-grid{grid-template-columns:1fr}}
+  .iss{padding:16px;border-radius:13px;border:1px solid var(--border);background:var(--glass);cursor:pointer;margin-bottom:10px;transition:.2s}
+  .iss:hover,.iss.sel{border-color:var(--border-glow);background:rgba(34,211,238,.06)}
+  .tl{position:relative;padding-left:30px}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--border)}
+  .tl-item{position:relative;padding-bottom:24px}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--dark);border:2px solid var(--emerald);box-shadow:0 0 10px rgba(16,185,129,.6)}
+  .tl-item.pending::before{border-color:var(--txt-mute);box-shadow:none}
+  .ledger{font-family:ui-monospace,monospace;font-size:12px}
+  .ledger .blk{display:flex;gap:10px;padding:10px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;background:var(--glass);align-items:center}
+  .hash{color:var(--cyan);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ba img{border-radius:12px;border:1px solid var(--border);height:130px;width:100%;object-fit:cover}
+</style>
+<script src="https://cdn.moda.app/runtime-libs/tailwind-browser-4.1.13-index.global.min.js"></script></head>
+<body>
+<div class="bg-grid"></div>
+<div id="loader"><div class="spinner"></div></div>
+<nav class="nav"><div class="nav-inner">
+  <a class="brand" href="/"><span class="logo">T</span> Tapestry<span style="color:var(--cyan)">AI</span></a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <div class="nav-links"><a href="/">Home</a><a href="/dashboard">Dashboard</a><a href="/report">Report</a><a href="/map">Map</a><a href="/tracking">Tracking</a><a href="/analytics">Analytics</a><a href="/profile">Profile</a><a href="/admin">Admin</a></div>
+  <div class="nav-right"><a class="btn btn-primary" href="/report">+ New Report</a></div>
+</div></nav>
+
+<div class="wrap">
+  <div class="page-head"><span class="eyebrow">Issue tracking</span><h1 style="font-size:clamp(28px,4vw,40px);margin-top:8px">Track your reports</h1><p style="color:var(--txt-dim);margin-top:6px">Follow every status change, progress update and verification — backed by the transparency ledger.</p></div>
+
+  <div class="track-grid" style="margin-top:24px">
+    <div class="glass" style="padding:18px">
+      <h3 style="font-size:16px;margin-bottom:14px">My submitted issues</h3>
+      <div id="iss-list"><div style="color:var(--txt-mute);font-size:13px">Loading…</div></div>
+    </div>
+
+    <div>
+      <div id="detail"><div class="glass" style="padding:24px;color:var(--txt-mute)">Select an issue to view details.</div></div>
+<!-- DETAIL_RENDERED_BY_JS
+        <div class="tl">
+          <div class="tl-item"><b>Report submitted</b><div style="color:var(--txt-dim);font-size:13px">AI classified as Pothole (96%), High severity.</div><div style="color:var(--txt-mute);font-size:12px">Mar 12, 09:14</div></div>
+          <div class="tl-item"><b>Verified by community</b><div style="color:var(--txt-dim);font-size:13px">8 upvotes · priority score raised to 82.</div><div style="color:var(--txt-mute);font-size:12px">Mar 12, 15:40</div></div>
+          <div class="tl-item"><b>Assigned to MetroFix Co.</b><div style="color:var(--txt-dim);font-size:13px">Contractor accepted · ETA 1–2 days.</div><div style="color:var(--txt-mute);font-size:12px">Mar 13, 08:02</div></div>
+          <div class="tl-item"><b>Repair in progress</b><div style="color:var(--txt-dim);font-size:13px">Crew on-site, asphalt patch underway.</div><div style="color:var(--txt-mute);font-size:12px">Mar 14, 11:20</div></div>
+          <div class="tl-item pending"><b style="color:var(--txt-mute)">Verification pending</b><div style="color:var(--txt-mute);font-size:13px">Awaiting after-photo & your confirmation.</div></div>
+        </div>
+
+        <h4 style="margin:18px 0 12px;font-size:15px">AI repair verification</h4>
+        <div class="ba">
+          <div><div style="font-size:12px;color:var(--txt-mute);margin-bottom:6px">Before</div><img src="https://api.moda.app/api/v2/images/ref/3f6314a7-8931-48d3-8b88-90af75b47e97?v=bd36a837&s=b119fa7f0116ee84f37e4b4eecfffcdc" alt="before"></div>
+          <div><div style="font-size:12px;color:var(--txt-mute);margin-bottom:6px">After</div><img src="https://api.moda.app/api/v2/images/ref/7c24d362-54c5-4fd2-8226-518f286e869e?v=ecdbed48&s=f5f763ea16805018fac3c86b89bb408e" alt="after"></div>
+        </div>
+        <div class="grid cols-2" style="margin-top:12px">
+          <div class="glass" style="padding:14px"><div style="font-size:12px;color:var(--txt-mute)">Completion score</div><div class="stat-num gradient-text" style="font-size:28px">93%</div></div>
+          <div class="glass" style="padding:14px"><div style="font-size:12px;color:var(--txt-mute)">Repair quality</div><div class="stat-num gradient-text" style="font-size:28px">A−</div></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:14px" onclick="this.textContent='✓ Repair verified — thank you!'">✅ Verify this repair</button>
+      </div>
+
+      <div class="glass" style="padding:24px;margin-top:22px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3 style="font-size:18px">🔗 Transparency ledger</h3><span class="chip pill-emerald">Immutable · simulated chain</span></div>
+        <div class="ledger">
+          <div class="blk"><span style="color:var(--emerald)">#4081</span><div style="flex:1"><div>ISSUE_CREATED</div><div class="hash">0x9af3…c21 · Mar 12 09:14</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4090</span><div style="flex:1"><div>VOTES_RECORDED · +8</div><div class="hash">0x12bd…7e4 · Mar 12 15:40</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4112</span><div style="flex:1"><div>ASSIGNED · MetroFix Co.</div><div class="hash">0x77ca…9d0 · Mar 13 08:02</div></div></div>
+          <div class="blk"><span style="color:var(--emerald)">#4150</span><div style="flex:1"><div>STATUS · in_progress</div><div class="hash">0x55ef…1a8 · Mar 14 11:20</div></div></div>
+        </div>
+        <p style="color:var(--txt-mute);font-size:12px;margin-top:10px">Each action is hashed & chained.</p>
+      </div>
+DETAIL_RENDERED_BY_JS -->
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="wrap" style="color:var(--txt-mute);font-size:13px;text-align:center">© 2024 Tapestry AI · Issue Tracking</div></footer>
+<script src="/js/store.js"></script>
+<script src="/js/app.js"></script>
+<script>
+var sevClass={Low:'sev-low',Medium:'sev-med',High:'sev-high',Critical:'sev-crit'};
+var progress={Reported:20,Verified:40,Assigned:55,'In progress':75,Resolved:100};
+function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fdate(iso){var d=new Date(iso);return d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function shortHash(s){var h=0;for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return '0x'+h.toString(16).padStart(8,'0').slice(0,4)+'…'+h.toString(16).slice(-3);}
+
+var mine=TapestryAPI.getIssues({mine:true});
+function renderList(activeId){
+  var el=document.getElementById('iss-list');
+  if(!mine.length){el.innerHTML='<div style="color:var(--txt-mute);font-size:13px">No reports yet. <a href="/report" style="color:var(--cyan)">Submit one →</a></div>';return;}
+  el.innerHTML=mine.map(function(i){
+    return '<div class="iss'+(i.id===activeId?' sel':'')+'" data-id="'+i.id+'"><div style="display:flex;justify-content:space-between;gap:8px"><b>'+esc(i.title)+'</b><span class="sev '+(sevClass[i.severity]||'sev-med')+'">'+i.severity+'</span></div><div style="color:var(--txt-mute);font-size:12px;margin-top:6px">#'+i.id.slice(-6).toUpperCase()+' · '+i.status+'</div><div class="bar" style="margin-top:8px"><i style="width:'+(progress[i.status]||20)+'%"></i></div></div>';
+  }).join('');
+  el.querySelectorAll('.iss').forEach(function(c){c.addEventListener('click',function(){renderDetail(c.dataset.id);renderList(c.dataset.id);});});
+}
+function renderDetail(id){
+  var i=TapestryAPI.getIssue(id);var d=document.getElementById('detail');if(!i){return;}
+  var ups=TapestryAPI.getUpdates(id);
+  var done=(i.status==='Resolved'||i.status==='Verified');
+  var tl=ups.map(function(u){return '<div class="tl-item"><b>'+esc(u.status)+'</b><div style="color:var(--txt-dim);font-size:13px">'+esc(u.notes||'')+'</div><div style="color:var(--txt-mute);font-size:12px">'+fdate(u.timestamp)+'</div></div>';}).join('');
+  if(!done)tl+='<div class="tl-item pending"><b style="color:var(--txt-mute)">Verification pending</b><div style="color:var(--txt-mute);font-size:13px">Awaiting completion & your confirmation.</div></div>';
+  var ledger=ups.map(function(u){return '<div class="blk"><span style="color:var(--emerald)">#'+Math.abs((u.id.charCodeAt(4)||7)*97%9000+1000)+'</span><div style="flex:1"><div>'+esc(u.status.toUpperCase().replace(/ /g,"_"))+'</div><div class="hash">'+shortHash(u.id)+' · '+fdate(u.timestamp)+'</div></div></div>';}).join('');
+  var imgBlock=i.imageUrl?'<h4 style="margin:18px 0 12px;font-size:15px">Uploaded evidence</h4><img src="'+i.imageUrl+'" alt="evidence" style="width:100%;max-height:260px;object-fit:cover;border-radius:14px;border:1px solid var(--border)">':'';
+  var verifyBtn=done?'<button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:14px" id="verify-btn">✅ Verify this repair</button>':'';
+  d.innerHTML='<div class="glass" style="padding:24px">'+
+    '<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px"><div><h3 style="font-size:20px">'+esc(i.title)+'</h3><div style="color:var(--txt-mute);font-size:13px">#'+i.id.slice(-6).toUpperCase()+' · '+esc(i.location||'—')+' · '+esc(i.category)+'</div></div><span class="chip '+(done?'pill-emerald':'pill-cyan')+'">'+i.status+' · '+(progress[i.status]||20)+'%</span></div>'+
+    (i.description?'<p style="color:var(--txt-dim);font-size:14px;margin-top:12px">'+esc(i.description)+'</p>':'')+
+    (i.estimatedCost?'<div style="margin-top:10px"><span class="chip pill-cyan">💰 AI estimate: $'+Number(i.estimatedCost).toLocaleString()+'</span> '+(i.assignee?'<span class="chip">🛠️ '+esc(i.assignee)+'</span>':'')+'</div>':'')+
+    imgBlock+
+    '<h4 style="margin:22px 0 14px;font-size:15px">Status timeline</h4><div class="tl">'+tl+'</div>'+
+    verifyBtn+'</div>'+
+    '<div class="glass" style="padding:24px;margin-top:22px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h3 style="font-size:18px">🔗 Transparency ledger</h3><span class="chip pill-emerald">Immutable</span></div><div class="ledger">'+ledger+'</div><p style="color:var(--txt-mute);font-size:12px;margin-top:10px">Each action is hashed & chained for a tamper-evident audit trail.</p></div>';
+  var vb=document.getElementById('verify-btn');
+  if(vb)vb.addEventListener('click',function(){TapestryAPI.updateIssue(id,{status:'Verified',notes:'Repair verified by citizen.'});this.textContent='✓ Repair verified — thank you!';this.disabled=true;mine=TapestryAPI.getIssues({mine:true});});
+}
+if(mine.length){renderList(mine[0].id);renderDetail(mine[0].id);}else{renderList();}
+</script>
+
+</body></html>
